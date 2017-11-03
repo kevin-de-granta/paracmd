@@ -1,0 +1,8 @@
+#!/bin/env python
+
+#
+# By W.Wang(Kevin), on 2017-11-02
+#
+
+print 'Parallel Command'
+

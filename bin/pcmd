@@ -1,0 +1,15 @@
+#!/bin/env python
+
+#
+# By W.Wang(Kevin), on 2017-11-02
+# TODO: use python 'affinity' package to bind a process with a certain logic CPU.
+# TODO: it is a pity that 'affinity' relies on package pywin32 for Windows platform.
+# TODO: in Linux, use command 'taskset'
+#
+
+#
+# TODO: add option --run-as=user-name
+#
+
+print 'Parallel Command'
+

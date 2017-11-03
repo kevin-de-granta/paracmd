@@ -1,2 +1,5 @@
-# paracmd
-A simple utility to broadcast command
+# Parallel Command
+
+A simple utility to broadcast command.
+
+
