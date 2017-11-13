@@ -14,7 +14,7 @@ import datetime
 from pcmd.util import DataConn
 
 class Daemon(object):
-    sleep_duration=2
+    sleep_duration=1
 
     def __init__(self, *args, **kwargs):
         self.hostname=os.environ.get('HOSTNAME')
@@ -27,7 +27,19 @@ class Daemon(object):
         while True:
             currTime = str(datetime.datetime.now())
             rtVal = self.conn.set(self.hbKey, currTime)
-            print 'Updating heart beat: ' + self.hbKey + ' => ' + currTime + ' => ' + str(rtVal)
+            # print 'Updating heart beat: ' + self.hbKey + ' => ' + currTime + ' => ' + str(rtVal)
+            cmd = self.conn.get(self.cmdKey)
+            self.conn.delete(self.cmdKey)
+            # DONE: then delete the pair (self.cmdKey, cmd) in the memory DB.
+            if cmd is not None:
+                # print 'Running command: \"' + cmd + '\"'
+                outLines = os.popen(cmd)
+                lineList = []
+                for line in outLines:
+                    line = line.strip()
+                    lineList.append(line)
+                reply = '\n'.join(lineList)
+                self.conn.set(self.replyKey, reply)
             time.sleep(Daemon.sleep_duration)
         pass
 

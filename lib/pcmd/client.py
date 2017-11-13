@@ -30,3 +30,26 @@ class Client(object):
             if heartBeat is not None:
                 print str(node) + ': ' + heartBeat
 
+    def sendCmd(self, cmd, targ=None):
+        if targ is not None:
+            cmdKey = 'cmd-to-' + targ
+            self.conn.set(cmdKey, cmd)
+        else:
+            nodeStr = self.env.get('clusters', 'ts10k')
+            nodeNameList = nodeStr.split(',')
+            for node in nodeNameList:
+                cmdKey = 'cmd-to-' + node
+                self.conn.set(cmdKey, cmd)
+
+    def rcvReply(self):
+        nodeStr = self.env.get('clusters', 'ts10k')
+        nodeNameList = nodeStr.split(',')
+        for node in nodeNameList:
+            replyKey = 'reply-from-' + node
+            reply = self.conn.get(replyKey)
+            self.conn.delete(replyKey)
+            if reply is not None:
+                print '[' + node + ']:'
+                print reply
+
+

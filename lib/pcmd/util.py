@@ -24,4 +24,12 @@ class DataConn(object):
 
     def get(self, key):
         return self.conn.get(key)
+
+    def delete(self, key):
+        return self.conn.delete(key)
+
+    def pop(self, key):
+        val = self.conn.get(key)
+        self.conn.delete(key)
+        return val
  
