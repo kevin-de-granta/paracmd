@@ -4,5 +4,12 @@
 # By W.Wang(Kevin), on 2017-11-02
 #
 
+from pcmd.env_pc import ParaCmdEnv
+from pcmd.daemon_factory import DaemonFactory
+
 print 'Parallel Command'
+env = ParaCmdEnv.GetInstance()
+daemon = DaemonFactory.MakeDaemon()
+daemon.serve()
+
 

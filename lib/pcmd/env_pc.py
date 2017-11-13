@@ -10,11 +10,15 @@
 
 
 import os
+import threading
 from  pcmd.env import Env
 
 
 # conf/zhi_miner.ini
 class ParaCmdEnv(Env):
+    instance = None
+    mutex = threading.Lock()
+
     HOME_KEY = 'PARACMD_HOME'
     CONF_FILE = 'conf/paracmd.ini'
 
@@ -26,6 +30,25 @@ class ParaCmdEnv(Env):
         userConfFile = userHome + '/' + userConfFile
         #print 'Path of user conf file: ' + userConfFile
         self.load(file=userConfFile, relative=False)
+
+    @staticmethod
+    def GetInstance():
+        if(ParaCmdEnv.instance==None):
+            ParaCmdEnv.mutex.acquire()
+            if(ParaCmdEnv.instance==None):
+                ParaCmdEnv.instance = ParaCmdEnv()
+            ParaCmdEnv.mutex.release()
+        return ParaCmdEnv.instance
+
+
+
+
+
+
+
+
+
+
 
 
 

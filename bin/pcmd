@@ -1,4 +1,5 @@
-#!/bin/env python
+#!$HOME/app/anaconda2/python
+#!/bin/env python2
 
 #
 # By W.Wang(Kevin), on 2017-11-02
@@ -11,5 +12,13 @@
 # TODO: add option --run-as=user-name
 #
 
+from pcmd.env_pc import ParaCmdEnv
+from pcmd.client import Client
+
 print 'Parallel Command'
+env = ParaCmdEnv.GetInstance()
+client = Client()
+client.qHBeat()
+
+
 
