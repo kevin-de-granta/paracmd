@@ -22,16 +22,14 @@ print 'Parallel Command:'
 print 'When there is no reply, please try adding \"2>&1\" at the end of a command.'
 env = ParaCmdEnv.GetInstance()
 client = Client()
-# client.qHBeat()
+client.qHBeat()
 # the sript itself is sys.argv[0]
 if(len(sys.argv) < 2):
-#if sys.argv[1] is None:
     print 'A command is needed.'
     sys.exit(0)
 cmd = sys.argv[1]
 targ = None
 if(len(sys.argv) >= 3):
-#if sys.argv[2] is not None:
     targ = sys.argv[2]
 client.sendCmd(cmd, targ)
 time.sleep(1.2*Daemon.sleep_duration)

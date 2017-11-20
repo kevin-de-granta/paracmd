@@ -9,6 +9,7 @@
 #
 
 import os
+import sys
 import time
 import datetime
 from pcmd.util import DataConn
@@ -21,6 +22,11 @@ class Daemon(object):
         self.hbKey='heart-beat-' + self.hostname #heart beat
         self.cmdKey='cmd-to-' + self.hostname
         self.replyKey='reply-from-' + self.hostname
+        appHome = os.environ.get('PARACMD_HOME')
+        self.intrptFileGlobal = appHome + '/tmp/intrpt/pdaemon.global'
+        self.intrptFileLocal = appHome + '/tmp/intrpt/pdaemon.' + self.hostname + '.local'
+        print self.intrptFileGlobal
+        print self.intrptFileLocal
         self.conn = DataConn()
 
     def serve(self, *args, **kwargs):
@@ -32,7 +38,7 @@ class Daemon(object):
             self.conn.delete(self.cmdKey)
             # DONE: then delete the pair (self.cmdKey, cmd) in the memory DB.
             if cmd is not None:
-                # print 'Running command: \"' + cmd + '\"'
+                print 'Running command: \"' + cmd + '\"'
                 outLines = os.popen(cmd)
                 lineList = []
                 for line in outLines:
@@ -40,8 +46,10 @@ class Daemon(object):
                     lineList.append(line)
                 reply = '\n'.join(lineList)
                 self.conn.set(self.replyKey, reply)
+            if(os.path.exists(self.intrptFileGlobal) or os.path.exists(self.intrptFileGlobal)):
+                # break # ?
+                sys.exit(0)
             time.sleep(Daemon.sleep_duration)
-        pass
 
 if __name__ == '__main__':
     print("Hello")

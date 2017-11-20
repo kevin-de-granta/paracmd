@@ -21,14 +21,14 @@ class Client(object):
     def qHBeat(self):
         # ConfigParser only supports lowwer-case letters, while domainname of s191 (TS10K) is in upper-case. ==> take care of it.
         nodeStr = self.env.get('clusters', 'ts10k')
-        print 'Processing node string: ' + nodeStr
+        # print 'Processing node string: ' + nodeStr
         nodeNameList = nodeStr.split(',')
         for node in nodeNameList:
             hbName = 'heart-beat-' + node
-            print hbName
+            # print hbName
             heartBeat = self.conn.get(hbName)
             if heartBeat is not None:
-                print str(node) + ': ' + heartBeat
+                print 'Heart beat: from ' + str(node) + ' at ' + heartBeat
 
     def sendCmd(self, cmd, targ=None):
         if targ is not None:
