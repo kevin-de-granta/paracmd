@@ -17,9 +17,9 @@ class Command(object):
     def __init__(self, val=None, token=None, type='query', id=None, cmdPkg=None):
         """
         Command types:
-            query:  to call with os.popen(to capture the output)
+            query/cap(ture):  to call with os.popen(to capture the output)
             sub/subprocess[optional]: to call with subprocess.popen, for more interaction.
-            sys:    to call with system(start a new process)(with no output and zero control)
+            sys/silent:    to call with system(start a new process)(with no output and zero control)
             intr:   internal command of ParamCmd.
             dynamic:    commands dynamically loaded.
         Command Package:
