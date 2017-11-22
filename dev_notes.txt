@@ -1,0 +1,14 @@
+in the first version, not to use multithreading.
+use a simple loop for all things.
+and not to use msg queue.
+
+use values like:
+heart-beat-hostname
+cmd-to-hostname
+reply-from-hostname
+
+set a value like timeout.
+think sth like a state machine 
+
+TODO: client.py
+
